@@ -2,6 +2,8 @@ import { login } from '@/api/user'
 import { jsonInBlacklist } from '@/api/jwt'
 import router from '@/router/index'
 export const user = {
+    // 为了解决不同模块命名冲突的问题,将不同的模块的namepsaced设置为true,之后在不同的页面中引入getters,actions,mutations需要
+    //  加上所属的模块名
     namespaced: true,
     state: {
         userInfo: {
@@ -37,9 +39,9 @@ export const user = {
     actions: {
         async LoginIn({ commit }, loginInfo) {
             const res = await login(loginInfo)
+            commit('setUserInfo', res.data.user)
+            commit('setToken', res.data.token)
             if (res.code == 0) {
-                commit('setUserInfo', res.data.user)
-                commit('setToken', res.data.token)
                 const redirect = router.history.current.query.redirect
                 if (redirect) {
                     router.push({ path: redirect })

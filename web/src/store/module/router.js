@@ -61,6 +61,8 @@ export const router = {
 
             })
             asyncRouterHandle(baseRouter)
+            // 使用commit("mutations中的方法", actions中的变量)
+            // 把分配的路由加到 asyncRouters 中
             commit('setAsyncRouter', baseRouter)
             commit('setRouterList', routerList)
             return true

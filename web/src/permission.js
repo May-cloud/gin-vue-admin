@@ -1,5 +1,5 @@
 import router from './router'
-import { store } from '@/store/index'
+import { store } from './store/index'
 
 let asyncRouterFlag = 0
 
@@ -20,8 +20,12 @@ router.beforeEach(async(to, from, next) => {
             // 添加flag防止多次获取动态路由和栈溢出
             if (!asyncRouterFlag) {
                 asyncRouterFlag++
+                // 获取动态路由
+                //
                 await store.dispatch('router/SetAsyncRouter')
+                // 获取动态的路由(后台获取的路由添加到asyncRouters)
                 const asyncRouters = store.getters['router/asyncRouters']
+                // 真正的添加路由
                 router.addRoutes(asyncRouters)
                 next({...to, replace: true })
             } else {
@@ -33,6 +37,7 @@ router.beforeEach(async(to, from, next) => {
             next({
                 name: "login",
                 query: {
+                    // hash是一个可读可写的字符串，读取时返回的是 URL 的锚部分，包括#号
                     redirect: document.location.hash
                 }
             })

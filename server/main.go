@@ -17,7 +17,9 @@ import (
 func main() {
 	initialize.Gorm()
 	if global.GVA_CONFIG.System.NeedInitData {
-		init_data.InitData() // 通过配置文件初始化数据 默认为 false 首次运行需要将 ./config.yaml中 system下的 need-init-data 修改为true
+		// 通过配置文件初始化数据 默认为 false 首次运行需要将 ./config.yaml中 system下的 need-init-data 修改为true
+		// 一次性初始化
+		init_data.InitData()
 	}
 	// 程序结束前关闭数据库链接
 	db, _ := global.GVA_DB.DB()

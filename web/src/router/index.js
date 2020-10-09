@@ -23,9 +23,16 @@ const baseRouters = [{
 
 // 需要通过后台数据来生成的组件
 
+// 箭头函数
 const createRouter = () => new Router({
     routes: baseRouters
 })
+// const createRouter = function () {
+//     return new Router({
+//         routes: baseRouters
+//     })
+// }
+
 
 const router = createRouter()
 
